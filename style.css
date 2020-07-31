@@ -1,2 +1,19 @@
 
 
+.options{
+    color: black;
+    height: 20px;
+    width: 20px;
+    font-size: 34px;
+    margin: 125px;
+    display: inline-block;
+    text-align: center;
+}
+
+button{
+    font-size: 30px;
+}
+
+h1{
+    text-align: center;
+}
