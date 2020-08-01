@@ -1,21 +1,29 @@
 capitalCity = document.getElementById("capitalDisplay");
 options = document.getElementsByClassName("options");
-generateNewCity = document.getElementById("restart");
 message = document.getElementById("message");
 restart = document.getElementById("restart");
+answerStreak = document.getElementById("answer-streak");
 
 let chosenCountries = [];
 let size = 4;
 let correctCity;
+let data = [];
+let correctAnswerStreak = 0;
 
-reset(size);
+//initiliazte the game
+init(size);
 
-function reset(size){
-    correctCity="";
-    chosenCountries = [];
-    let indexes = [];
+function init(size){
+  
     indexes = generateRandom(size);
-    callApi(indexes);
+    callApi().then((result)=>{
+    
+        for (let i = 0; i < indexes.length; i++) {
+            chosenCountries.push(result[indexes[i]]); 
+             }
+             //console.log(chosenCountries);
+             updateDOM(chosenCountries);
+    })
 }
 
 //Randomly pick the correct country
@@ -25,61 +33,72 @@ function digitRandom(size){
 
 
 //call the API and get the data
-async function callApi(indexes){
+async function callApi(){
     //With Arrow Function
    const res = await fetch('https://restcountries.eu/rest/v2/all');
-   const data =  await res.json();
-    
-   for (let i = 0; i < indexes.length; i++) {
-    chosenCountries.push(data[indexes[i]]); 
-   
-  }
-  updateDOM(chosenCountries);
+   const result =  await res.json();
+   return result;
 }
 
 function updateDOM(chosenCountries){
-
     pickCountry = digitRandom(size);
     correctCapital = chosenCountries[pickCountry].capital;
     correctCountry = chosenCountries[pickCountry].name;
-
     capitalCity.textContent = correctCapital;
-  
-    for (let i = 0; i < chosenCountries.length; i++) {  
+    displayEvertything(chosenCountries);
+}
 
-        options[i].textContent = chosenCountries[i].name
-        options[i].addEventListener("click", function(){
+function displayEvertything(chosenCountries) {
+
+    for (let i = 0; i < chosenCountries.length; i++) {
+        options[i].textContent = chosenCountries[i].name;
+        options[i].addEventListener("click", function () {
             this.classList.add("clicked");
-        
-
-
             let clickedCountry = this.textContent;
-            if(clickedCountry === correctCountry){
-                message.textContent = "Correct! 🤗";
-
-                options[pickCountry].classList.add("correct");
-                restart.textContent = "Next"
-                for (let i = 0; i < chosenCountries.length; i++) {
-                    if(i !==pickCountry){options[i].classList.add("incorrect");} 
-                }
-
-            } else{
-                message.textContent = "Incorrect! 😔";
-                restart.textContent = "Play again?"
-                options[pickCountry].classList.add("correct");
-
-
-                for (let i = 0; i < chosenCountries.length; i++) {
-                 
-                    if(i !==pickCountry){options[i].classList.add("incorrect");} 
-                }      
-            }
-        })
+            displayCorrectAnswer();
+            displayWrongAnswers(chosenCountries);
+            displayResult(clickedCountry, chosenCountries);
+        }); 
     }
 }
 
 
+function displayResult(clickedCountry, chosenCountries) {
+    if (clickedCountry === correctCountry) {
+        displayVictory(chosenCountries);
+    }
+    else {
+        displayDefeat(chosenCountries);
+    }
+}
 
+//show which answer is correct
+function displayCorrectAnswer() {
+    options[pickCountry].classList.add("correct");
+}
+
+//show which answers are wrong 
+function displayWrongAnswers(chosenCountries) {
+    for (let i = 0; i < chosenCountries.length; i++) {
+        if (i !== pickCountry) { options[i].classList.add("incorrect"); }
+    }
+}
+
+function displayDefeat(chosenCountries) {
+    message.textContent = "Incorrect! 😔";
+    correctAnswerStreak = 0;
+    answerStreak.textContent = "";
+    restart.textContent = "Play again?";
+}
+
+function displayVictory(chosenCountries) {
+    correctAnswerStreak = correctAnswerStreak + 1;
+    // answerStreak.textContent = "Correct answer streak " + correctAnswerStreak +"🔥";
+    message.textContent = "Correct! 🤗";
+    restart.textContent = "Next";
+}
+
+//Randomly choose next four countries
 function generateRandom(size){
     let tempArray = [];
     while(tempArray.length < size){
@@ -89,4 +108,26 @@ function generateRandom(size){
         } 
     }
     return tempArray;
+}
+
+//Restart Button
+restart.addEventListener("click", function(){
+    correctCity="";
+    chosenCountries = [];
+    let indexes = [];
+    size = 4;
+    message.textContent = "";
+    resetClassList();
+    correctAnswerStreak = 0;
+    answerStreak.textContent = "";
+    init(size);
+})
+
+
+function resetClassList() {
+    for (let i = 0; i < size; i++) {
+        options[i].classList.remove("incorrect");
+        options[i].classList.remove("correct");
+        options[i].classList.remove("clicked");
+    }
 }

@@ -23,8 +23,6 @@ body{
     backdrop-filter: blur(6px);
 }
 
-
-
 header{
     padding-top: 100px;
 }
@@ -45,7 +43,7 @@ header{
     padding: 7px;
 }
 
-.options:hover {opacity: 0.4}
+.options:hover {opacity: 0.7}
 
 #container-answers{
     display: flex;
@@ -90,12 +88,10 @@ h1{
 /*  */
 
 #restart{
-
     background-color: transparent;
     border: none;
     color: white;
     font-size: 27px;
-
 }
 
 .container-settings{
@@ -140,28 +136,34 @@ h1{
   .mode:hover {opacity: 0.4}
 
   
-  /* Links inside the dropdown */
+  /* Links inside the dropdown
   .dropdown-content a {
     color: black;
     padding: 12px 16px;
     text-decoration: none;
     display: block;
-  }
+  } */
 
 .dropbtn{
     font-size: 30px;
     color: white;
 }
-  /* Change color of dropdown links on hover */
-.dropdown-content a:hover {background-color: #ddd;}
+
 
 /* Show the dropdown menu on hover */
 .dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown */
-.dropdown:hover .dropbtn {background-color: 	#1b4445;}
+.dropdown:hover .dropbtn {
+    background-color: 	#1b4445;
+    cursor:pointer;
+}
 
-#restart:hover {background-color: 	#1b4445;}
+#restart:hover {
+    background-color: 	#1b4445;
+    cursor:pointer;
+}
+
 
 #message{
     margin-top: 40px;
@@ -170,4 +172,14 @@ h1{
     text-align: center;
     display: block;
     font-weight: bold;
+}
+
+#answer-streak{
+    color: white;
+    font-size: 27px;
+    font-weight: bold;
+    display: block;
+    padding: none;
+    margin: none;
+    text-align: right;
 }
