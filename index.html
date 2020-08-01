@@ -9,24 +9,18 @@
 </head>
 <body>
 
+<div class="container">
+
+
+	<header>
+		<h1>Which country's capital city is named
+			<br>
+			<span id="capitalDisplay"></span> 
+			?
+		</h1>
+	</header>
    
-	<h1>The capital city is 
-		<br>
-		<span id="capitalDisplay"></span> 
-		<br>
-	</h1>
-
-	<div id="stripe">
-
-		<button id="restart">Generate new city</button>
-		<span id="message"></span>
-        <!-- <button class= "mode">Easy</button>
-        <button class= "mode">Medium</button>
-        <button class= "mode selected">Hard</button> -->
-        
-	</div>
-
-	<div id="container">
+	<div id="container-answers">
 
 		<div class="options" id="choice1">Option</div>
 		<div class="options" id="choice2">Option</div>
@@ -36,10 +30,29 @@
 		<div class="options" id="choice6">Option</div> -->
  
 	</div>
+	<span id="message"></span>
+
+	<div class="container-settings">
+		
+		<div class="dropdown">
+			<button class="dropbtn">Difficulty</button>
+			<div class="dropdown-content">
+				<ul>
+					<li> <button class= "mode">Easy</button>  </li> 
+					<li> <button class= "mode">Medium</button> </li> 
+					<li> <button class= "mode">Hard</button> </li> 
+				</ul>	
+			</div>
+		  </div>
+		<button id="restart">Restart</button>		
+	</div>
   
-    
 
 
-    <script src="script.js"></script>
+</div>
+
+	<script src="script.js"></script>
+	
+
 </body>
 </html>
