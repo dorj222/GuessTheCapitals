@@ -15,8 +15,6 @@ let correctCity;
 let correctAnswerStreak = 0;
 const flagLink = "https://www.countryflags.io/";
 
-
-
 //initiliazte the game
 init(size);
 
@@ -44,7 +42,6 @@ function setUpDisplay(){
 function digitRandom(size){
     return parseInt(Math.floor(Math.random() * size),  10);
 }
-
 
 //call the API and get the data
 async function callApi(){

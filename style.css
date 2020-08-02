@@ -175,3 +175,53 @@ h1{
     margin: none;
     text-align: right;
 }
+
+
+@media only screen and (max-width: 768px){
+
+ h1{
+    font-size: 20px;
+ }
+   
+.options{
+    font-size: 14px;
+} 
+
+.flag-image{
+    height: 14px;
+    width: auto;
+}
+
+button{
+    font-size: 14px;
+}
+
+.mode, .dropbtn{
+    font-size: 15px;
+}
+
+#restart, #message, #answer-streak{
+    font-size: 15px;
+}
+
+.container-settings{
+    padding-top: 0px;
+    margin-top: 0px;
+}
+
+header{
+    padding-top: 14px;
+}
+
+.options{
+    margin-top: 18px;
+}
+#container-answers{
+    margin-top: 8px;
+}
+br{
+    display: none;
+}
+
+}
+
