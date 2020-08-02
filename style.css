@@ -23,8 +23,9 @@ header{
 }
 
 .flag-image{
-    height: 30px;
+    height: 37px;
     width: auto;
+    vertical-align: middle;
 }
 
 .options{
@@ -32,10 +33,9 @@ header{
     color: var(--primary-text-color);
     font-size: 27px;
     cursor:pointer;
-    color: var(--primary-text-color);
     margin: 0 auto;
     display: block;
-    margin-top: 30px;
+    margin-top: 20px;
     width: 60%;
     text-align: center;
     border: 2px dashed black;
