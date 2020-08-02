@@ -1,9 +1,11 @@
 capitalCity = document.getElementById("capitalDisplay");
 options = document.getElementsByClassName("options");
+selected = document.getElementsByClassName("selected");
 message = document.getElementById("message");
 restart = document.getElementById("restart");
 buttonModes = document.getElementsByClassName("mode");
 answerStreak = document.getElementById("answer-streak");
+flags = document.getElementsByClassName("flag-image");
 
 
 let chosenCountries = [];
@@ -11,6 +13,8 @@ let size = 4;
 let correctCity;
 let data = [];
 let correctAnswerStreak = 0;
+const flagLink = "https://www.countryflags.io/";
+
 
 for (var i = 4; i < options.length; i++) {
     options[i].style.display = "none";
@@ -20,7 +24,6 @@ for (var i = 4; i < options.length; i++) {
 init(size);
 
 function init(size){
-  
     indexes = generateRandom(size);
     callApi().then((result)=>{
         for (let i = 0; i < indexes.length; i++) {
@@ -29,6 +32,8 @@ function init(size){
              //console.log(chosenCountries);
              updateDOM(chosenCountries);
     })
+
+    
 }
 
 //Randomly pick the correct country
@@ -52,20 +57,24 @@ function updateDOM(chosenCountries){
     if(correctCapital === "" || correctCountry ===""){reset(size);}
     capitalCity.textContent = correctCapital;
     displayEvertything(chosenCountries);
+    
 }
 
 function displayEvertything(chosenCountries) {
 
     for (let i = 0; i < chosenCountries.length; i++) {
-        options[i].textContent = chosenCountries[i].name;
+        selected[i].textContent = chosenCountries[i].name;
+        flags[i].setAttribute('src', flagLink + chosenCountries[i].alpha2Code+ "/flat/64.png");
         options[i].addEventListener("click", function () {
             this.classList.add("clicked");
-            let clickedCountry = this.textContent;
+            let clickedCountry = selected[i].textContent;
             displayCorrectAnswer();
             displayWrongAnswers(chosenCountries);
             displayResult(clickedCountry, chosenCountries);
         }); 
     }
+
+
 }
 
 
@@ -179,3 +188,4 @@ for (let i = 0; i < buttonModes.length; i++) {
         reset(size);
     })
 }
+
