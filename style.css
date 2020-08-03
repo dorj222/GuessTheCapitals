@@ -37,12 +37,20 @@ header{
     display: block;
     margin-top: 20px;
     width: 60%;
+    /* transition-duration: 0.2s; */
+    /* transition: all 0.1s ease-out; */
+    transition:all 0.4s ease-in-out;
     text-align: center;
     border: 2px dashed black;
     padding: 7px;
 }
 
-.options:hover {opacity: 0.7}
+.options:hover {
+    opacity: 0.7;
+    transition:all 0.1s ease-in-out;
+	box-shadow: 0 0 10px white;
+    /* transform: scale(1.05);  */
+}
 
 #container-answers{
     display: flex;
@@ -68,18 +76,29 @@ h1{
 }
 
 .correct{
-    border: 2px solid green;
+    border: 1px solid green;
     pointer-events: none;
 }
 
 .incorrect{
-    border: 2px solid red;
     pointer-events: none;
+    opacity: 0.3;
 }
 
 .clicked{
-    opacity: 0.3;
     pointer-events: none;
+    border-width: 5px;
+    transition: ease-in-out;
+    border-style: solid;
+    font-weight: 800;
+    cursor: not-allowed;
+    box-shadow: 0 0 20px white;
+}
+
+.clicked-dif{
+    text-decoration: underline;
+    pointer-events: none;
+    opacity: 0.4;
     cursor: not-allowed;
 }
 
@@ -216,6 +235,11 @@ header{
 .options{
     margin-top: 18px;
 }
+
+.clicked{
+    border: 2px solid black;
+}
+
 #container-answers{
     margin-top: 8px;
 }

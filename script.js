@@ -11,9 +11,8 @@ flags = document.getElementsByClassName("flag-image");
 let chosenCountries = [];
 //Default number of countries to display
 let size = 4;  
-let correctCity;
-let correctAnswerStreak = 0;
 const flagLink = "https://www.countryflags.io/";
+let answered = [];
 
 //initiliazte the game
 init(size);
@@ -39,8 +38,8 @@ function setUpDisplay(){
 }
 
 //Randomly pick the correct country
-function digitRandom(size){
-    return parseInt(Math.floor(Math.random() * size),  10);
+function digitRandom(size){ 
+    return  randomNumber = parseInt(Math.floor(Math.random() * size),  10);
 }
 
 //call the API and get the data
@@ -52,17 +51,40 @@ async function callApi(){
 }
 
 function updateDOM(chosenCountries){
+    
     pickCountry = digitRandom(size);
     correctCapital = chosenCountries[pickCountry].capital;
     correctCountry = chosenCountries[pickCountry].name;
-    if(correctCapital === "" || correctCountry ===""){reset(size);}
-    capitalCity.textContent = correctCapital;
+
+    duplicatesTest();
+    setCongrats();
+
+    capitalCity.textContent = `${correctCapital}`;
     updateGameProgress(chosenCountries);
+}
+
+function duplicatesTest() {
+    if ((answered.includes(correctCapital) === false ) &&(correctCapital !== "")) {
+        answered.push(correctCapital);
+    }else{
+        reset(size);
+    }
+}
+
+//congrats the play
+function setCongrats() {
+    if(answered.length === 200){
+    message.textContent = "Congratulations, you won! 🎉";
+    for (let i = 0; i < size; i++) {
+        selected[i].textContent = "";
+        options[i].classList.add("clicked");
+    }
+    restart.textContent = "Play again?";
+    }
 }
 
 //this function sets the game respone and update the game progress
 function updateGameProgress(chosenCountries) {
-
     for (let i = 0; i < chosenCountries.length; i++) {
         selected[i].textContent = chosenCountries[i].name;
         flags[i].setAttribute('src', flagLink + chosenCountries[i].alpha2Code+ "/flat/64.png");
@@ -105,18 +127,20 @@ function displayWrongAnswers(chosenCountries) {
 function displayDefeat(chosenCountries) {
     message.textContent = "Incorrect! 😔";
     restart.textContent = "Play again?";
+    answered = [];
 }
 
 function displayVictory(chosenCountries) {
     message.textContent = "Correct! 🤗";
     restart.textContent = "Next";
+    answerStreak.textContent = `Answer Streak ${answered.length}🔥`;
 }
 
 //Randomly choose next four countries
 function generateRandom(size){
     let tempArray = [];
     while(tempArray.length < size){
-        var i = Math.floor(Math.random() * 250);
+        let i = Math.floor(Math.random() * 250);
         if(tempArray.includes(i) === false){
             tempArray.push(i);
         } 
@@ -131,7 +155,6 @@ restart.addEventListener("click", function(){
 
 //Reset everything
 function reset(size) {
-    correctCity = "";
     chosenCountries = [];
     message.textContent = "";
     restart.textContent = "Restart";
@@ -155,21 +178,22 @@ for (let i = 0; i < buttonModes.length; i++) {
     buttonModes[i].addEventListener("click", function(){
 
        correctAnswerStreak = 0;
+       answered = [];
        removeClicked();
 
         if(this.textContent==="Easy"){
-            this.classList.add("clicked");
+            this.classList.add("clicked-dif");
             size = 2;
             displayMode(size, 0);
         }
         else if(this.textContent==="Medium"){
             size = 4;
-            this.classList.add("clicked");
+            this.classList.add("clicked-dif");
             displayMode(size, 0);
         }
         else if(this.textContent==="Hard"){
             size = 6;
-            this.classList.add("clicked");
+            this.classList.add("clicked-dif");
             displayMode(size, 0);
         }
         reset(size);
@@ -179,7 +203,7 @@ for (let i = 0; i < buttonModes.length; i++) {
 
 function removeClicked() {
     for (let i = 0; i < buttonModes.length; i++) {
-        buttonModes[i].classList.remove("clicked");
+        buttonModes[i].classList.remove("clicked-dif");
     }
 }
 
