@@ -7,3 +7,9 @@ This game challenges one to remember every capital city; the rule of this game i
 Built with
 
 HTML, CSS, Vanilla JS, and APIs from http://restcountries.eu/ and https://www.countryflags.io/.
+
+How to access it?
+
+Please go to the following link.
+
+Link: https://dorj222.github.io/GuessTheCapitals/
