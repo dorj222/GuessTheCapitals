@@ -45,7 +45,7 @@ function digitRandom(size){
 //call the API and get the data
 async function callApi(){
     //With Arrow Function
-   const res = await fetch('https://restcountries.eu/rest/v2/all');
+   const res = await fetch('https://restcountries.com/v2/all');
    const result =  await res.json();
    return result;
 }
@@ -87,7 +87,7 @@ function setCongrats() {
 function updateGameProgress(chosenCountries) {
     for (let i = 0; i < chosenCountries.length; i++) {
         selected[i].textContent = chosenCountries[i].name;
-        flags[i].setAttribute('src', flagLink + chosenCountries[i].alpha2Code+ "/flat/64.png");
+        // flags[i].setAttribute('src', + chosenCountries[i].alpha2Code+ "/flat/64.png");
         getUserAnswer(i, chosenCountries); 
     }
 }
